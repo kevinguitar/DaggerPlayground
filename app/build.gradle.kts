@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.anvil)
 }
 
 android {
@@ -62,7 +63,7 @@ dependencies {
     implementation(libs.dagger)
     implementation(libs.dagger.android)
     implementation(libs.dagger.android.support)
-    implementation(libs.dagger.compiler)
+    kapt(libs.dagger.compiler)
     kapt(libs.dagger.android.processor)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

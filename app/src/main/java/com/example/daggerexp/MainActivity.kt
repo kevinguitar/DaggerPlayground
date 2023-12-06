@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import com.example.daggerexp.ui.theme.DaggerExpTheme
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
 import dagger.android.AndroidInjection
@@ -19,6 +20,7 @@ import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
 
 @Module
+@ContributesTo(AppScope::class)
 interface MainActivityModule {
 
     @ContributesAndroidInjector(modules = [MainActivityDepModule::class])
