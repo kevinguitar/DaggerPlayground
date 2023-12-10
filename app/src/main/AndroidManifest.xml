@@ -18,6 +18,13 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.DaggerExp">
+
+        </activity>
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.DaggerExp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

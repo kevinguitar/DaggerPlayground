@@ -1,47 +1,44 @@
 package com.example.daggerexp
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.deliveryhero.whetstone.Whetstone
-import com.deliveryhero.whetstone.activity.ActivityScope
-import com.deliveryhero.whetstone.activity.ContributesActivityInjector
+import com.deliveryhero.whetstone.app.ApplicationScope
 import com.example.daggerexp.ui.theme.DaggerExpTheme
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
+import dagger.android.AndroidInjection
+import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
 
 @Module
-@ContributesTo(ActivityScope::class)
-object MainActivityDepModule {
+@ContributesTo(ApplicationScope::class)
+interface MainActivity2Module {
+
+    @ContributesAndroidInjector(modules = [MainActivityDepModule::class])
+    fun mainActivity(): MainActivity2
+}
+
+@Module
+object MainActivity2DepModule {
 
     @Provides
-    fun provideComponentActivity(activity: Activity): ComponentActivity {
-        return activity as ComponentActivity
-    }
-
-    @Provides
-    fun provideParam(activity: ComponentActivity): String {
-        return "Activity Param"
+    fun provideParam(activity: MainActivity): String {
+        return "MainActivity2"
     }
 }
 
-@ContributesActivityInjector
-class MainActivity : ComponentActivity() {
+class MainActivity2 : ComponentActivity() {
 
     @Inject lateinit var param: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Whetstone.inject(this)
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             DaggerExpTheme {
@@ -54,21 +51,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DaggerExpTheme {
-        Greeting("Android")
     }
 }
