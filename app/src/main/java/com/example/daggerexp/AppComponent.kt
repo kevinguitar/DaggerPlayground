@@ -16,9 +16,13 @@ import javax.inject.Singleton
     scope = ApplicationScope::class,
     modules = [AndroidInjectionModule::class]
 )
-interface AppComponent : ApplicationComponent, AndroidInjector<App> {
+interface AppComponent : ApplicationComponent, AppServiceProvider {
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance app: App): AppComponent
     }
 }
+
+// Weird stuff, extending AndroidInjector directly to AppComponent fail
+// the Whetstone code generation somehow, looks like a bug.
+interface AppServiceProvider : AndroidInjector<App>

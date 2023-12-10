@@ -6,12 +6,12 @@ import com.deliveryhero.whetstone.app.ApplicationComponentOwner
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import dagger.assisted.AssistedFactory
 import javax.inject.Inject
 
 class App : Application(), ApplicationComponentOwner, HasAndroidInjector {
 
-    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     private lateinit var appComponent: AppComponent
 
@@ -21,8 +21,8 @@ class App : Application(), ApplicationComponentOwner, HasAndroidInjector {
         appComponent.inject(this)
     }
 
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
-
     override val applicationComponent: ApplicationComponent
         get() = appComponent
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

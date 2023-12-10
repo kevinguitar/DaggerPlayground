@@ -20,7 +20,7 @@ import javax.inject.Inject
 @ContributesTo(ApplicationScope::class)
 interface MainActivity2Module {
 
-    @ContributesAndroidInjector(modules = [MainActivityDepModule::class])
+    @ContributesAndroidInjector(modules = [MainActivity2DepModule::class])
     fun mainActivity(): MainActivity2
 }
 
@@ -28,7 +28,7 @@ interface MainActivity2Module {
 object MainActivity2DepModule {
 
     @Provides
-    fun provideParam(activity: MainActivity): String {
+    fun provideParam(activity: MainActivity2): String {
         return "MainActivity2"
     }
 }
