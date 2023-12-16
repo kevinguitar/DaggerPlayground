@@ -7,37 +7,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.daggerexp.di.AnvilInjection
+import com.example.daggerexp.di.AnvilInjector
+import com.example.daggerexp.di.TestRepo
 import com.example.daggerexp.ui.theme.DaggerExpTheme
 import com.squareup.anvil.annotations.ContributesTo
+import dagger.BindsInstance
+import dagger.MembersInjector
 import dagger.Module
 import dagger.Provides
-import dagger.android.AndroidInjection
-import dagger.android.ContributesAndroidInjector
+import dagger.Subcomponent
 import javax.inject.Inject
 
-@Module
-@ContributesTo(AppGraph::class)
-interface MainActivity2Module {
 
-    @ContributesAndroidInjector(modules = [MainActivity2DepModule::class])
-    fun mainActivity2(): MainActivity2
-}
-
-@Module
-object MainActivity2DepModule {
-
-    @Provides
-    fun provideParam(activity: MainActivity2): String {
-        return "MainActivity2"
-    }
-}
+//@Module
+//object MainActivity2DepModule {
+//
+//    @Provides
+//    fun provideParam(activity: MainActivity2): String {
+//        return "MainActivity2"
+//    }
+//}
 
 class MainActivity2 : ComponentActivity() {
 
-    @Inject lateinit var param: String
+//    @Inject lateinit var param: String
+    @Inject lateinit var testRepo: TestRepo
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        AnvilInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             DaggerExpTheme {
@@ -46,7 +44,8 @@ class MainActivity2 : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting(param)
+                    Greeting("adsf")
+                    testRepo.print()
                 }
             }
         }

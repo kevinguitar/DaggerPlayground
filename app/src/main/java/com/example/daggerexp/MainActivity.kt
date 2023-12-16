@@ -31,19 +31,14 @@ interface MainActivityModule {
 object MainActivityDepModule {
 
     @Provides
-    fun provideComponentActivity(activity: Activity): ComponentActivity {
-        return activity as ComponentActivity
-    }
-
-    @Provides
-    fun provideParam(activity: ComponentActivity): String {
+    fun provideParam(activity: MainActivity): String {
         return "Activity Param"
     }
 }
 
 class MainActivity : ComponentActivity() {
 
-//    @Inject lateinit var param: String
+    @Inject lateinit var param: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -55,8 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    Greeting(param)
-                    Greeting(name = "asdf")
+                    Greeting(param)
                 }
             }
         }
