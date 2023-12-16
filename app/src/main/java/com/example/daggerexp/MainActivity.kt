@@ -32,7 +32,7 @@ object MainActivityDepModule {
 
     @Provides
     fun provideParam(activity: MainActivity): String {
-        return "Activity Param"
+        return activity::class.simpleName!!
     }
 }
 

@@ -8,31 +8,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.daggerexp.di.AnvilInjection
-import com.example.daggerexp.di.AnvilInjector
 import com.example.daggerexp.di.TestRepo
 import com.example.daggerexp.ui.theme.DaggerExpTheme
-import com.squareup.anvil.annotations.ContributesTo
-import dagger.BindsInstance
-import dagger.MembersInjector
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
 import javax.inject.Inject
 
+@Module
+object MainActivity2DepModule {
 
-//@Module
-//object MainActivity2DepModule {
-//
-//    @Provides
-//    fun provideParam(activity: MainActivity2): String {
-//        return "MainActivity2"
-//    }
-//}
+    @Provides
+    fun provideParam(activity: MainActivity2): String {
+        return activity::class.simpleName!!
+    }
+}
 
 class MainActivity2 : ComponentActivity() {
 
-//    @Inject lateinit var param: String
-    @Inject lateinit var testRepo: TestRepo
+    @Inject
+    lateinit var param: String
+    @Inject
+    lateinit var testRepo: TestRepo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AnvilInjection.inject(this)
@@ -44,7 +40,7 @@ class MainActivity2 : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("adsf")
+                    Greeting(param)
                     testRepo.print()
                 }
             }

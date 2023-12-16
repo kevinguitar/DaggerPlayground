@@ -3,6 +3,7 @@ package com.example.daggerexp.di
 import androidx.activity.ComponentActivity
 import com.example.daggerexp.AppGraph
 import com.squareup.anvil.annotations.ContributesTo
+import dagger.BindsInstance
 import dagger.MembersInjector
 import dagger.Module
 import dagger.multibindings.Multibinds
@@ -13,16 +14,22 @@ interface AnvilInjector<T> {
     fun inject(target: T) {
         injector.injectMembers(target)
     }
+
+    interface Factory<T> {
+        fun create(@BindsInstance instance: T): AnvilInjector<T>
+    }
 }
 
 object AnvilInjection {
 
-    inline fun <reified T : ComponentActivity> inject(activity: T) {
+    fun <T : ComponentActivity> inject(activity: T) {
         val injector = (activity.applicationContext as HasAnvilInjectors)
             .anvilInjectors[activity::class.java]
 
         @Suppress("UNCHECKED_CAST")
-        (injector as AnvilInjector<ComponentActivity>).inject(activity)
+        (injector as AnvilInjector.Factory<ComponentActivity>)
+            .create(activity)
+            .inject(activity)
     }
 }
 
@@ -31,9 +38,9 @@ object AnvilInjection {
 interface AnvilInjectorsDependency {
 
     @Multibinds
-    fun activityInjectors(): Map<Class<*>, AnvilInjector<*>>
+    fun activityInjectors(): Map<Class<*>, AnvilInjector.Factory<*>>
 }
 
 interface HasAnvilInjectors {
-    val anvilInjectors: Map<Class<*>, AnvilInjector<*>>
+    val anvilInjectors: Map<Class<*>, AnvilInjector.Factory<*>>
 }

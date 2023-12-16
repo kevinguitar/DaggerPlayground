@@ -15,7 +15,7 @@ class App : Application(), HasAndroidInjector, HasAnvilInjectors {
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
-    override lateinit var anvilInjectors: Map<@JvmSuppressWildcards Class<*>, @JvmSuppressWildcards AnvilInjector<*>>
+    override lateinit var anvilInjectors: Map<@JvmSuppressWildcards Class<*>, @JvmSuppressWildcards AnvilInjector.Factory<*>>
 
     private lateinit var appComponent: AppComponent
 
