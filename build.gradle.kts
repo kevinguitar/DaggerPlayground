@@ -4,5 +4,4 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.anvil) apply false
-    alias(libs.plugins.whetstone) apply false
 }

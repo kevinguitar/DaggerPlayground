@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.deliveryhero.whetstone.app.ApplicationScope
 import com.example.daggerexp.ui.theme.DaggerExpTheme
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
@@ -17,11 +16,11 @@ import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
 
 @Module
-@ContributesTo(ApplicationScope::class)
+@ContributesTo(AppGraph::class)
 interface MainActivity2Module {
 
     @ContributesAndroidInjector(modules = [MainActivity2DepModule::class])
-    fun mainActivity(): MainActivity2
+    fun mainActivity2(): MainActivity2
 }
 
 @Module

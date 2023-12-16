@@ -37,4 +37,3 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 anvil = { id = "com.squareup.anvil", version = "2.4.8" }
-whetstone = { id = "com.deliveryhero.whetstone", version = "0.6.0" }

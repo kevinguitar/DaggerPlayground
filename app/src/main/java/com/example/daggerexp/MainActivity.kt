@@ -11,17 +11,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.deliveryhero.whetstone.Whetstone
-import com.deliveryhero.whetstone.activity.ActivityScope
-import com.deliveryhero.whetstone.activity.ContributesActivityInjector
 import com.example.daggerexp.ui.theme.DaggerExpTheme
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
+import dagger.android.AndroidInjection
+import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
 
 @Module
-@ContributesTo(ActivityScope::class)
+@ContributesTo(AppGraph::class)
+interface MainActivityModule {
+
+    @ContributesAndroidInjector(modules = [MainActivityDepModule::class])
+    fun mainActivity(): MainActivity
+}
+
+@Module
 object MainActivityDepModule {
 
     @Provides
@@ -35,13 +41,12 @@ object MainActivityDepModule {
     }
 }
 
-@ContributesActivityInjector
 class MainActivity : ComponentActivity() {
 
-    @Inject lateinit var param: String
+//    @Inject lateinit var param: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Whetstone.inject(this)
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             DaggerExpTheme {
@@ -50,7 +55,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting(param)
+//                    Greeting(param)
+                    Greeting(name = "asdf")
                 }
             }
         }
