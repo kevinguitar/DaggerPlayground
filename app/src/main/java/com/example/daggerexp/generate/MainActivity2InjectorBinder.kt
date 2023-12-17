@@ -29,17 +29,15 @@ interface MainActivity2InjectorBinder {
 
 @MergeSubcomponent(
     scope = ActivityGraph::class,
-    modules = [SubcomponentDefaultModule::class, MainActivity2DepModule::class]
+    modules = [MainActivity2DefaultModule::class, MainActivity2DepModule::class]
 )
 interface MainActivity2Subcomponent : AnvilInjector<MainActivity2> {
-
     @Subcomponent.Factory
     interface Factory : AnvilInjector.Factory<MainActivity2>
 }
 
 @Module
-object SubcomponentDefaultModule {
-
+object MainActivity2DefaultModule {
     @Provides
     fun provideComponentActivity(activity: MainActivity2): ComponentActivity {
         return activity

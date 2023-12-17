@@ -22,6 +22,7 @@ object MainActivity2DepModule {
     }
 }
 
+@ContributesActivityInjector(AppGraph::class, modules = [MainActivity2DepModule::class])
 class MainActivity2 : ComponentActivity() {
 
     @Inject lateinit var param: String

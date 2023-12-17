@@ -3,10 +3,10 @@ package com.example.daggerexp
 import android.app.Application
 import javax.inject.Inject
 
-class App : Application(), HasAnvilInjectors {
+class App : Application(), HasAnvilInjector {
 
     @Inject
-    override lateinit var anvilInjectors: Map<@JvmSuppressWildcards Class<*>, @JvmSuppressWildcards AnvilInjector.Factory<*>>
+    override lateinit var dispatchingAnvilInjector: DispatchingAnvilInjector
 
     private lateinit var appComponent: AppComponent
 

@@ -22,8 +22,8 @@ interface AnvilInjector<T> {
 object AnvilInjection {
 
     fun <T : ComponentActivity> inject(activity: T) {
-        val injector = (activity.applicationContext as HasAnvilInjectors)
-            .anvilInjectors[activity::class.java]
+        val injector = (activity.applicationContext as HasAnvilInjector)
+            .dispatchingAnvilInjector[activity::class.java]
 
         @Suppress("UNCHECKED_CAST")
         (injector as AnvilInjector.Factory<ComponentActivity>)
@@ -34,12 +34,14 @@ object AnvilInjection {
 
 @Module
 @ContributesTo(AppGraph::class)
-interface AnvilInjectorsDependency {
+interface DispatchingAnvilInjectorModule {
 
     @Multibinds
-    fun activityInjectors(): Map<Class<*>, AnvilInjector.Factory<*>>
+    fun dispatchingAnvilInjector(): DispatchingAnvilInjector
 }
 
-interface HasAnvilInjectors {
-    val anvilInjectors: Map<Class<*>, AnvilInjector.Factory<*>>
+interface HasAnvilInjector {
+    val dispatchingAnvilInjector: DispatchingAnvilInjector
 }
+
+typealias DispatchingAnvilInjector = Map<@JvmSuppressWildcards Class<*>, @JvmSuppressWildcards AnvilInjector.Factory<*>>

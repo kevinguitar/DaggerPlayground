@@ -24,9 +24,11 @@ object MainActivityDepModule {
     }
 }
 
+@ContributesActivityInjector(AppGraph::class, modules = [MainActivityDepModule::class])
 class MainActivity : ComponentActivity() {
 
     @Inject lateinit var param: String
+    @Inject lateinit var billingController: BillingController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AnvilInjection.inject(this)
@@ -38,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting(param)
+                    Greeting(billingController.getPrice())
                 }
             }
         }
