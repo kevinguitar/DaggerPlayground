@@ -1,8 +1,7 @@
-package com.example.daggerexp.di
+package com.example.daggerexp
 
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultCaller
-import com.example.daggerexp.ActivityGraph
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides

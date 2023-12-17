@@ -1,8 +1,8 @@
-package com.example.daggerexp.di
+package com.example.daggerexp.generate
 
 import androidx.activity.ComponentActivity
-import androidx.activity.result.ActivityResultCaller
 import com.example.daggerexp.ActivityGraph
+import com.example.daggerexp.AnvilInjector
 import com.example.daggerexp.AppGraph
 import com.example.daggerexp.MainActivity2
 import com.example.daggerexp.MainActivity2DepModule

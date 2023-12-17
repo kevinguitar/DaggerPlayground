@@ -1,7 +1,6 @@
-package com.example.daggerexp.di
+package com.example.daggerexp
 
 import androidx.activity.ComponentActivity
-import com.example.daggerexp.AppGraph
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.BindsInstance
 import dagger.MembersInjector

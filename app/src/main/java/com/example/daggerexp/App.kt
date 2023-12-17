@@ -1,18 +1,9 @@
 package com.example.daggerexp
 
 import android.app.Application
-import androidx.activity.ComponentActivity
-import com.example.daggerexp.di.AnvilInjector
-import com.example.daggerexp.di.HasAnvilInjectors
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class App : Application(), HasAndroidInjector, HasAnvilInjectors {
-
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+class App : Application(), HasAnvilInjectors {
 
     @Inject
     override lateinit var anvilInjectors: Map<@JvmSuppressWildcards Class<*>, @JvmSuppressWildcards AnvilInjector.Factory<*>>
@@ -22,8 +13,6 @@ class App : Application(), HasAndroidInjector, HasAnvilInjectors {
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.factory().create(this)
-        appComponent.inject(this)
+        appComponent.injectMembers(this)
     }
-
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

@@ -27,9 +27,6 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "dagger" }
-dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "dagger" }
-dagger-android-processor = { module = "com.google.dagger:dagger-android-processor", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 
 [plugins]
@@ -37,3 +34,4 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 anvil = { id = "com.squareup.anvil", version = "2.4.8" }
+ksp = { id = "com.google.devtools.ksp", version = "1.9.0-1.0.13" }

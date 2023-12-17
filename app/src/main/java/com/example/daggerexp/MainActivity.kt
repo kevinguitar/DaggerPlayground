@@ -1,6 +1,5 @@
 package com.example.daggerexp
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,27 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.daggerexp.ui.theme.DaggerExpTheme
-import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.android.AndroidInjection
-import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
-
-@Module
-@ContributesTo(AppGraph::class)
-interface MainActivityModule {
-
-    @ContributesAndroidInjector(modules = [MainActivityDepModule::class])
-    fun mainActivity(): MainActivity
-}
 
 @Module
 object MainActivityDepModule {
 
     @Provides
     fun provideParam(activity: MainActivity): String {
-        return activity::class.simpleName!!
+        return "I'm MainActivity"
     }
 }
 
@@ -41,7 +29,7 @@ class MainActivity : ComponentActivity() {
     @Inject lateinit var param: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        AnvilInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             DaggerExpTheme {
