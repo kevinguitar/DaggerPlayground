@@ -8,7 +8,10 @@ import javax.inject.Singleton
 
 @Singleton
 @MergeComponent(scope = AppGraph::class)
-interface AppComponent : MembersInjector<App> {
+interface AppComponent {
+
+    fun inject(app: App)
+
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance app: App): AppComponent

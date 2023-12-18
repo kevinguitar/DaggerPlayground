@@ -1,11 +1,12 @@
 package com.example.daggerexp.generate
 
 import androidx.activity.ComponentActivity
-import com.example.daggerexp.ActivityGraph
-import com.example.daggerexp.AnvilInjector
+import com.example.daggerexp.ActivityModule
+import com.example.daggerexp.AnvilAndroidInjection
+import com.example.daggerexp.AnvilAndroidInjector
 import com.example.daggerexp.AppGraph
+import com.example.daggerexp.BillingModule
 import com.example.daggerexp.MainActivity2
-import com.example.daggerexp.MainActivity2DepModule
 import com.squareup.anvil.annotations.ContributesTo
 import com.squareup.anvil.annotations.MergeSubcomponent
 import dagger.Binds
@@ -24,16 +25,16 @@ interface MainActivity2InjectorBinder {
     @ClassKey(MainActivity2::class)
     fun bindMainActivity2AnvilInjector(
         impl: MainActivity2Subcomponent.Factory
-    ): AnvilInjector.Factory<*>
+    ): AnvilAndroidInjector.Factory<*>
 }
 
 @MergeSubcomponent(
-    scope = ActivityGraph::class,
-    modules = [MainActivity2DefaultModule::class, MainActivity2DepModule::class]
+    scope = MainActivity2::class,
+    modules = [MainActivity2DefaultModule::class, ActivityModule::class]
 )
-interface MainActivity2Subcomponent : AnvilInjector<MainActivity2> {
+interface MainActivity2Subcomponent : AnvilAndroidInjector<MainActivity2> {
     @Subcomponent.Factory
-    interface Factory : AnvilInjector.Factory<MainActivity2>
+    interface Factory : AnvilAndroidInjector.Factory<MainActivity2>
 }
 
 @Module

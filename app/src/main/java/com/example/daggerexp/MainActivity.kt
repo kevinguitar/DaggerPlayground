@@ -11,27 +11,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.daggerexp.ui.theme.DaggerExpTheme
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
-import dagger.Provides
 import javax.inject.Inject
 
-@Module
-object MainActivityDepModule {
+@Module(includes = [BillingModule::class])
+@ContributesTo(MainActivity::class)
+interface MainActivityDepModule
 
-    @Provides
-    fun provideParam(activity: MainActivity): String {
-        return "I'm MainActivity"
-    }
-}
 
-@ContributesActivityInjector(AppGraph::class, modules = [MainActivityDepModule::class])
+@ContributesActivityInjector
 class MainActivity : ComponentActivity() {
 
-    @Inject lateinit var param: String
     @Inject lateinit var billingController: BillingController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AnvilInjection.inject(this)
+        AnvilAndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             DaggerExpTheme {

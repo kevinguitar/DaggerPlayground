@@ -3,7 +3,7 @@ package com.example.daggerexp
 import android.app.Application
 import javax.inject.Inject
 
-class App : Application(), HasAnvilInjector {
+class App : Application(), HasAnvilAndroidInjector {
 
     @Inject
     override lateinit var dispatchingAnvilInjector: DispatchingAnvilInjector
@@ -13,6 +13,6 @@ class App : Application(), HasAnvilInjector {
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.factory().create(this)
-        appComponent.injectMembers(this)
+        appComponent.inject(this)
     }
 }

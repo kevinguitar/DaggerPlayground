@@ -2,4 +2,4 @@ package com.example.daggerexp
 
 interface AppGraph
 
-interface ActivityGraph
+annotation class ActivityScope

@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-@ContributesTo(ActivityGraph::class)
 object ActivityModule {
 
     @Provides
@@ -17,7 +16,6 @@ object ActivityModule {
 }
 
 @Module
-@ContributesTo(ActivityGraph::class)
 object BillingModule {
 
     @Provides

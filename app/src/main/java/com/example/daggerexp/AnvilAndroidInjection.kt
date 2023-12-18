@@ -1,5 +1,8 @@
 package com.example.daggerexp
 
+import android.app.Fragment
+import android.app.Service
+import android.view.View
 import androidx.activity.ComponentActivity
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.BindsInstance
@@ -7,7 +10,7 @@ import dagger.MembersInjector
 import dagger.Module
 import dagger.multibindings.Multibinds
 
-interface AnvilInjector<T> {
+interface AnvilAndroidInjector<T> {
     val injector: MembersInjector<T>
 
     fun inject(target: T) {
@@ -15,21 +18,36 @@ interface AnvilInjector<T> {
     }
 
     interface Factory<T> {
-        fun create(@BindsInstance instance: T): AnvilInjector<T>
+        fun create(@BindsInstance instance: T): AnvilAndroidInjector<T>
     }
 }
 
-object AnvilInjection {
+object AnvilAndroidInjection {
 
     fun <T : ComponentActivity> inject(activity: T) {
-        val injector = (activity.applicationContext as HasAnvilInjector)
+        val injector = (activity.applicationContext as HasAnvilAndroidInjector)
             .dispatchingAnvilInjector[activity::class.java]
 
         @Suppress("UNCHECKED_CAST")
-        (injector as AnvilInjector.Factory<ComponentActivity>)
+        (injector as AnvilAndroidInjector.Factory<ComponentActivity>)
             .create(activity)
             .inject(activity)
     }
+
+    fun inject(fragment: Fragment) {
+
+    }
+
+    fun inject(view: View) {
+
+    }
+
+    fun inject(service: Service) {
+
+    }
+
+    // Separate class
+    // fun inject(worker: ListenableWorker)
 }
 
 @Module
@@ -40,8 +58,8 @@ interface DispatchingAnvilInjectorModule {
     fun dispatchingAnvilInjector(): DispatchingAnvilInjector
 }
 
-interface HasAnvilInjector {
+interface HasAnvilAndroidInjector {
     val dispatchingAnvilInjector: DispatchingAnvilInjector
 }
 
-typealias DispatchingAnvilInjector = Map<@JvmSuppressWildcards Class<*>, @JvmSuppressWildcards AnvilInjector.Factory<*>>
+typealias DispatchingAnvilInjector = Map<@JvmSuppressWildcards Class<*>, @JvmSuppressWildcards AnvilAndroidInjector.Factory<*>>

@@ -9,11 +9,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.daggerexp.ui.theme.DaggerExpTheme
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
 
-@Module
+@Module(includes = [BillingModule::class])
+@ContributesTo(MainActivity2::class)
 object MainActivity2DepModule {
 
     @Provides
@@ -22,7 +24,7 @@ object MainActivity2DepModule {
     }
 }
 
-@ContributesActivityInjector(AppGraph::class, modules = [MainActivity2DepModule::class])
+@ContributesActivityInjector
 class MainActivity2 : ComponentActivity() {
 
     @Inject lateinit var param: String
@@ -30,7 +32,7 @@ class MainActivity2 : ComponentActivity() {
     @Inject lateinit var billingController: BillingController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AnvilInjection.inject(this)
+        AnvilAndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             DaggerExpTheme {
